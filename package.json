@@ -1,0 +1,16 @@
+{
+  "name": "nuxt-storybook-i18n-example",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "storybook": "nuxt storybook"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "nuxt": "^2.14.6",
+    "nuxt-i18n": "^6.15.4",
+    "@nuxtjs/storybook": "^3.2.0"
+  },
+  "devDependencies": {}
+}
