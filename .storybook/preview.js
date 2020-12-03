@@ -1,13 +1,11 @@
 import Vue from 'vue';
 
 import * as components from '../.nuxt-storybook/components';
-import { prepareForInline } from './prepareForInline';
+import { prepareForInline } from '../.nuxt-storybook/storybook/nuxt-entry';
 
 import '~storybook';
 
 Object.keys(components).forEach(name => Vue.component(name, components[name]));
-
-let currentLocale = 'en';
 
 const globalParameters = {};
 globalParameters.docs = {
@@ -16,6 +14,8 @@ globalParameters.docs = {
 };
 
 export const parameters = globalParameters;
+
+let currentLocale = 'en';
 
 export const globalTypes = {
   locale: {
@@ -40,6 +40,11 @@ export const decorators = [
     }
     return {
       template: '<story />',
+      created () {
+        if (this.$i18n) {
+          this.$i18n.locale = currentLocale;
+        }
+      },
       updated () {
         if (this.$i18n) {
           this.$i18n.locale = currentLocale;
