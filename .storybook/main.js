@@ -1,4 +1,4 @@
-const stories = ['~/components/**/*.stories.@(ts|js)']
+const stories = ['../components/**/*.stories.@(ts|js)']
 const addons  = ["@storybook\u002Faddon-essentials"]
 
 function nuxifyStorybook(storybookConfig) {

@@ -1,12 +1,13 @@
 import Vue from 'vue';
 
-import * as components from '~/.nuxt-storybook/components';
-import { forceReRender } from '~/.nuxt-storybook/storybook/entry';
-import { prepareForInline } from '~/.nuxt-storybook/storybook/nuxt-entry';
+import * as components from '../.nuxt-storybook/components';
+import { prepareForInline } from './prepareForInline';
 
 import '~storybook';
 
 Object.keys(components).forEach(name => Vue.component(name, components[name]));
+
+let currentLocale = 'en';
 
 const globalParameters = {};
 globalParameters.docs = {
@@ -16,13 +17,11 @@ globalParameters.docs = {
 
 export const parameters = globalParameters;
 
-let defaultLocale = 'en';
-
 export const globalTypes = {
   locale: {
     name: 'Locale',
     description: 'Internationalization locale',
-    defaultValue: defaultLocale,
+    defaultValue: currentLocale,
     toolbar: {
       icon: 'globe',
       items: [
@@ -36,15 +35,14 @@ export const globalTypes = {
 
 export const decorators = [
   (_, { globals }) => {
-    if (globals.locale !== defaultLocale) {
-      defaultLocale = globals.locale;
-      setTimeout(() => forceReRender(), 0);
+    if (globals.locale !== currentLocale) {
+      currentLocale = globals.locale;
     }
     return {
       template: '<story />',
       updated () {
         if (this.$i18n) {
-          this.$i18n.locale = defaultLocale;
+          this.$i18n.locale = currentLocale;
         }
       },
     };
